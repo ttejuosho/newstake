@@ -1,3 +1,5 @@
+$(document).on("click", "#scrape", function() {
+
 // Grab the articles as a json
 $.getJSON("/articles", function(data) {
     // For each one
@@ -21,7 +23,7 @@ $.getJSON("/articles", function(data) {
       
     }
   });
-
+});
 
 
 // Whenever someone clicks a p tag
