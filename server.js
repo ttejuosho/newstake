@@ -34,7 +34,7 @@ mongoose.connect("mongodb://localhost/newstake", {
 // This route will retrieve all of the data
 // from the scrapedData collection as a json (this will be populated
 // by the data you scrape using the next route)
-app.get("/scrape", function(req,res){
+app.get("/", function(req,res){
     
       request("https://www.nytimes.com/section/technology", function(error, response, html){
     
