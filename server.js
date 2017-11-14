@@ -11,7 +11,7 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 
-var PORT = 3000;
+var port = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
@@ -41,9 +41,7 @@ app.get("/scrape", function(req,res){
        // Load the HTML into cheerio and save it to a variable
       // '$' becomes a shorthand for cheerio's selector commands, much like jQuery's '$'
         var $ = cheerio.load(html);
-    
-
-    
+     
         $("a.story-link").each(function(i, element) {
         // An empty array to save the data that we'll scrape
         var results = {};
@@ -57,17 +55,10 @@ app.get("/scrape", function(req,res){
 
               results.summary = $(element).children().text().trim();
           
-              // Save these results in an object that we'll push into the results array we defined earlier
-            //   results.push({
-            //     title: results.title,
-            //     link: results.link,
-            //     summary: results.summary
-            //   });
-
-                        // Log the results once you've looped through each of the elements found with cheerio
-                        console.log(results);
+            // Log the results once you've looped through each of the elements found with cheerio
+            console.log(results);
                         
-                             // Create a new Article using the `result` object built from scraping
+            // Create a new Article using the `result` object built from scraping
                  db.Article
                  .create(results)
                  .then(function(dbArticle) {
@@ -79,10 +70,7 @@ app.get("/scrape", function(req,res){
                    res.json(err);
                  });
 
-
             });
-          
-
 
         });
     });
@@ -144,7 +132,7 @@ app.post("/articles/:id", function(req, res) {
       });
   });
 
-  
+
 
 // Start the server
 app.listen(PORT, function() {
